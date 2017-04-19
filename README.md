@@ -11,10 +11,12 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 ## Build and Run the Gallery in (arbitrary number) easy steps
 
 1. Prerequisites. Install these if you don't already have them:
- 1. Visual Studio 2015 - Custom install so that you may also install Microsoft SQL Server Data Tools. This will provide the LocalDB that Windows Azure SDK requires.
- 2. PowerShell 2.0 (comes with Windows 7+)
- 3. [NuGet](http://docs.nuget.org/docs/start-here/installing-nuget)
- 4. [Windows Azure SDK](http://www.microsoft.com/windowsazure/sdk/)
+    1. Visual Studio 2017 - Do a Custom install that includes the following components:
+        * Windows SDK - Used to generate a self-signed certificate for local testing.
+        * Microsoft SQL Server Data Tools - Used to provide the LocalDB that Windows Azure SDK requires.
+    2. PowerShell 3.0
+    3. [NuGet](http://docs.nuget.org/docs/start-here/installing-nuget)
+    4. [Windows Azure SDK](http://www.microsoft.com/windowsazure/sdk/)
 2. Clone it!
     
     ```git clone git@github.com:NuGet/NuGetGallery.git```
@@ -25,9 +27,9 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
     .\build
     ```
 4. Set up the website in IIS Express!
- 1. We highly recommend using IIS Express. Use the [Web Platform Installer](http://microsoft.com/web) to install it if you don't have it already (it comes with recent versions of VS and WebMatrix though). Make sure to at least once run IIS Express as an administrator.
- 2. In an ADMIN powershell prompt, run the `.\tools\Enable-LocalTestMe.ps1` file. It allows non-admins to host websites at: `http(s)://nuget.localtest.me`, it configures an IIS Express site at that URL and creates a self-signed SSL certificate. For more information on `localtest.me`, check out [readme.localtest.me](http://readme.localtest.me). However, because [Server Name Indication](https://en.wikipedia.org/wiki/Server_Name_Indication) is not supported in the Network Shell on versions of Windows before 8, you must have at least Windows 8 to run this script successfully.
- 3. If you're having trouble, go to the _Project Properties_ for the Website project, click on the _Web_ tab and change the URL to `localhost:port` where _port_ is some port number above 1024.
+    1. We highly recommend using IIS Express. Use the [Web Platform Installer](http://microsoft.com/web) to install it if you don't have it already (it comes with recent versions of VS and WebMatrix though). Make sure to at least once run IIS Express as an administrator.
+    2. In an ADMIN powershell prompt, run the `.\tools\Enable-LocalTestMe.ps1` file. It allows non-admins to host websites at: `http(s)://nuget.localtest.me`, it configures an IIS Express site at that URL and creates a self-signed SSL certificate. For more information on `localtest.me`, check out [readme.localtest.me](http://readme.localtest.me). However, because [Server Name Indication](https://en.wikipedia.org/wiki/Server_Name_Indication) is not supported in the Network Shell on versions of Windows before 8, you must have at least Windows 8 to run this script successfully.
+    3. If you're having trouble, go to the _Project Properties_ for the Website project, click on the _Web_ tab and change the URL to `localhost:port` where _port_ is some port number above 1024.
  
 5. Create the Database!
   
@@ -122,8 +124,9 @@ This is the Git workflow we're currently using:
 
 ### Setting up
 
-1. Clone and checkout the following branches (to make sure local copies are made): '
-2. '.
+1. Clone and checkout the following branches (to make sure local copies are made):
+    * `master`
+    * `dev`
 
 ### When starting a new feature/unit of work.
     
@@ -142,7 +145,7 @@ This is the Git workflow we're currently using:
     create one and assign it to yourself!
 
         git checkout dev
-        git checkout -b anurse-123-makesuckless
+        git checkout -b anurse-123-improve
     
 3.  __Do your work.__
     Now, do your work using the following highly accurate and efficient algorithm :)
@@ -160,7 +163,7 @@ This is the Git workflow we're currently using:
     5. if (moreWorkToDo) go to #3.1 else go to #4.
 
 4.  __Start a code review.__
-    Start a code review by pushing your branch up to GitHub (```git push origin anurse-123-makesuckless```) and 
+    Start a code review by pushing your branch up to GitHub (```git push origin anurse-123-improve```) and 
     creating a Pull Request from your branch to ***dev***. Wait for at least someone on the team to respond with: ":shipit:" (that's called the
     "Ship-It Squirrel" and you can put it in your own comments by typing ```:shipit:```).
 
@@ -171,7 +174,7 @@ This is the Git workflow we're currently using:
 
         git checkout dev
         git pull origin dev
-        git merge anurse-123-makesuckless
+        git merge anurse-123-improve
         ... resolve conflicts ...
         git push origin dev
     
