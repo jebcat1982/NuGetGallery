@@ -11,8 +11,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 ## Build and Run the Gallery in (arbitrary number) easy steps
 
 1. Prerequisites. Install these if you don't already have them:
-    1. Visual Studio 2017 - Do a Custom install that includes the following components:
-        * Windows SDK - Used to generate a self-signed certificate for local testing.
+    1. Visual Studio 2017 - Do a Custom install that includes the following component:
         * Microsoft SQL Server Data Tools - Used to provide the LocalDB that Windows Azure SDK requires.
     2. PowerShell 3.0
     3. [NuGet](http://docs.nuget.org/docs/start-here/installing-nuget)
@@ -28,8 +27,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
     ```
 4. Set up the website in IIS Express!
     1. We highly recommend using IIS Express. Use the [Web Platform Installer](http://microsoft.com/web) to install it if you don't have it already (it comes with recent versions of VS and WebMatrix though). Make sure to at least once run IIS Express as an administrator.
-    2. In an ADMIN powershell prompt, run the `.\tools\Enable-LocalTestMe.ps1` file. It allows non-admins to host websites at: `http(s)://nuget.localtest.me`, it configures an IIS Express site at that URL and creates a self-signed SSL certificate. For more information on `localtest.me`, check out [readme.localtest.me](http://readme.localtest.me). However, because [Server Name Indication](https://en.wikipedia.org/wiki/Server_Name_Indication) is not supported in the Network Shell on versions of Windows before 8, you must have at least Windows 8 to run this script successfully.
-    3. If you're having trouble, go to the _Project Properties_ for the Website project, click on the _Web_ tab and change the URL to `localhost:port` where _port_ is some port number above 1024.
+    2. If you're having trouble, go to the _Project Properties_ for the Website project, click on the _Web_ tab and change the URL to `localhost:port` where _port_ is some port number above 1024.
  
 5. Create the Database!
   
