@@ -119,6 +119,8 @@ namespace NuGetGallery
         /// </remarks>
         public string ProjectUrl { get; set; }
 
+        public string RepoUrl { get; set; }
+
         public bool RequiresLicenseAcceptance { get; set; }
 
         /// <remarks>
