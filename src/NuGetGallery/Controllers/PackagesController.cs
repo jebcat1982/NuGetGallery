@@ -1244,6 +1244,7 @@ namespace NuGetGallery
                     IconUrl = packageMetadata.IconUrl.ToEncodedUrlStringOrNull(),
                     LicenseUrl = packageMetadata.LicenseUrl.ToEncodedUrlStringOrNull(),
                     ProjectUrl = packageMetadata.ProjectUrl.ToEncodedUrlStringOrNull(),
+                    RepoUrl = packageMetadata.RepoUrl.ToEncodedUrlStringOrNull(),
                     ReleaseNotes = packageMetadata.ReleaseNotes,
                     RequiresLicenseAcceptance = packageMetadata.RequireLicenseAcceptance,
                     Summary = packageMetadata.Summary,
@@ -1304,7 +1305,7 @@ namespace NuGetGallery
 
                     pendEdit = pendEdit || IsDifferent(formData.Edit.IconUrl, packageMetadata.IconUrl.ToEncodedUrlStringOrNull());
                     pendEdit = pendEdit || IsDifferent(formData.Edit.ProjectUrl, packageMetadata.ProjectUrl.ToEncodedUrlStringOrNull());
-
+                    pendEdit = pendEdit || IsDifferent(formData.Edit.RepoUrl, packageMetadata.RepoUrl.ToEncodedUrlStringOrNull());
                     pendEdit = pendEdit || IsDifferent(formData.Edit.Authors, packageMetadata.Authors.Flatten());
                     pendEdit = pendEdit || IsDifferent(formData.Edit.Copyright, packageMetadata.Copyright);
                     pendEdit = pendEdit || IsDifferent(formData.Edit.Description, packageMetadata.Description);

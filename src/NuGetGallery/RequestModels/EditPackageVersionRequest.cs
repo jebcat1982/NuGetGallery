@@ -21,6 +21,7 @@ namespace NuGetGallery
         public const string TagsStr = "Tags (space separated - e.g. 'ASP.NET Templates MVC')";
         public const string ReleaseNotesStr = "Release Notes (for this version)";
         public const string RequiresLicenseAcceptanceStr = "Requires license acceptance";
+        public const string RepoUrlStr = "Repository URL";
 
         public EditPackageVersionRequest()
         {
@@ -41,6 +42,7 @@ namespace NuGetGallery
                 Summary = package.Summary,
                 Tags = package.Tags,
                 Title = package.Title,
+                RepoUrl = package.RepoUrl,
             };
             Authors = metadata.Authors;
             Copyright = metadata.Copyright;
@@ -48,6 +50,7 @@ namespace NuGetGallery
             IconUrl = metadata.IconUrl;
             LicenseUrl = metadata.LicenseUrl;
             ProjectUrl = metadata.ProjectUrl;
+            RepoUrl = metadata.RepoUrl;
             ReleaseNotes = metadata.ReleaseNotes;
             RequiresLicenseAcceptance = metadata.RequiresLicenseAcceptance;
             Summary = metadata.Summary;
@@ -85,6 +88,12 @@ namespace NuGetGallery
         [DataType(DataType.Text)]
         [RegularExpression(Constants.UrlValidationRegEx, ErrorMessage = Constants.UrlValidationErrorMessage)]
         public string ProjectUrl { get; set; }
+
+        [StringLength(256)]
+        [Display(Name = RepoUrlStr)]
+        [DataType(DataType.Text)]
+        [RegularExpression(Constants.UrlValidationRegEx, ErrorMessage = Constants.UrlValidationErrorMessage)]
+        public string RepoUrl { get; set; }
 
         [StringLength(512)]
         [Display(Name = AuthorsStr)]
