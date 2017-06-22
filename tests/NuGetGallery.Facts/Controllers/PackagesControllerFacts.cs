@@ -2055,7 +2055,7 @@ namespace NuGetGallery
                     await controller.VerifyPackage(new VerifyPackageRequest { Listed = true, Edit = edit });
 
                     // Assert 
-                    fakeEditPackageService.Verify(x => x.StartEditPackageRequest(fakePackage, edit, TestUtility.FakeUser), Times.Once);
+                    fakeEditPackageService.Verify(x => x.StartEditPackageRequest(fakePackage, edit, TestUtility.FakeUser, false), Times.Once);
                 }
             }
            
@@ -2096,7 +2096,7 @@ namespace NuGetGallery
                             await controller.VerifyPackage(model);
 
                             // Assert 
-                            fakeEditPackageService.Verify(x => x.StartEditPackageRequest(fakePackage, model.Edit, TestUtility.FakeUser), Times.Never);
+                            fakeEditPackageService.Verify(x => x.StartEditPackageRequest(fakePackage, model.Edit, TestUtility.FakeUser, true), Times.Never);
                         }
                     }
                 }
