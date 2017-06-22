@@ -94,9 +94,11 @@
         <li>@EditableField("Summary", m => m.Edit.Summary)</li>
         <li>@EditableField("Icon URL", m => m.Edit.IconUrl, link: true)</li>
         <li>@EditableField("Project URL", m => m.Edit.ProjectUrl, link: true)</li>
-		@if (System.Configuration.ConfigurationManager.AppSettings["Gallery.RepositoryUrlIsShown"])
+		@if (System.Configuration.ConfigurationManager.AppSettings["Gallery.RepositoryUrlIsShown"] == "true")
 		{
 			<li>@EditableField("Repository URL", m => m.Edit.RepositoryUrl, link: true)</li>
+			<li><label for="ReadmeFile" id="ReadmeFileLabel">Choose a ReadMe file...</label></li>
+			<li><input type="file" name="UploadFile" accept=".md" aria-labelledby="ReadmeFileLabel" /></li>
 		}
         <li>@EditableField("Authors", m => m.Edit.Authors)</li>
         <li>@EditableField("Copyright", m => m.Edit.Copyright)</li>
