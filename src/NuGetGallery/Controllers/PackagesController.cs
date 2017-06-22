@@ -989,7 +989,8 @@ namespace NuGetGallery
             {
                 try
                 {
-                    _editPackageService.StartEditPackageRequest(package, formData.Edit, user);
+                    //TODO : Change false to a variable when handling the edit scenario.
+                    _editPackageService.StartEditPackageRequest(package, formData.Edit, user, false);
                     await _entitiesContext.SaveChangesAsync();
 
                     var packageWithEditsApplied = formData.Edit.ApplyTo(package);
@@ -1342,7 +1343,7 @@ namespace NuGetGallery
                     var readMeChanged = formData.ReadMe.Count > 0;
                     if (readMeChanged)
                     {
-                        _packageFileService.SavePackageFileAsync();
+                        await _packageFileService.SaveReadMeFileAsync(package, formData.ReadMe[0].InputStream);
                     }
                     // Add the edit request to a queue where it will be processed in the background.
                     _editPackageService.StartEditPackageRequest(package, formData.Edit, currentUser, readMeChanged);
