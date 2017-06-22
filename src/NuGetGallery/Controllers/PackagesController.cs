@@ -1264,7 +1264,7 @@ namespace NuGetGallery
         public virtual async Task<ActionResult> VerifyPackage(VerifyPackageRequest formData)
         {
             var currentUser = GetCurrentUser();
-
+            var readme = formData.ReadMe[0];
             Package package;
             using (Stream uploadFile = await _uploadFileService.GetUploadFileAsync(currentUser.Key))
             {
