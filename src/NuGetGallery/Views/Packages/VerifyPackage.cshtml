@@ -94,6 +94,10 @@
         <li>@EditableField("Summary", m => m.Edit.Summary)</li>
         <li>@EditableField("Icon URL", m => m.Edit.IconUrl, link: true)</li>
         <li>@EditableField("Project URL", m => m.Edit.ProjectUrl, link: true)</li>
+		@if (System.Configuration.ConfigurationManager.AppSettings["Gallery.RepositoryUrlIsShown"])
+		{
+			<li>@EditableField("Repository URL", m => m.Edit.RepositoryUrl, link: true)</li>
+		}
         <li>@EditableField("Authors", m => m.Edit.Authors)</li>
         <li>@EditableField("Copyright", m => m.Edit.Copyright)</li>
         <li>@EditableField("Tags", m => m.Edit.Tags)</li>
@@ -265,7 +269,8 @@
             SetupInput('Edit_Description');
             SetupInput('Edit_Summary');
             SetupInput('Edit_IconUrl');
-            SetupInput('Edit_ProjectUrl');
+			SetupInput('Edit_ProjectUrl');
+			SetupInput('Edit_RepositoryUrl');
             SetupInput('Edit_Authors');
             SetupInput('Edit_Copyright');
             SetupInput('Edit_Tags');
