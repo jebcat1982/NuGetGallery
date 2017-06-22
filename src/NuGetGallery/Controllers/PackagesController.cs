@@ -1264,8 +1264,9 @@ namespace NuGetGallery
         public virtual async Task<ActionResult> VerifyPackage(VerifyPackageRequest formData)
         {
             var currentUser = GetCurrentUser();
-            var readme = formData.ReadMe[0];
+
             Package package;
+
             using (Stream uploadFile = await _uploadFileService.GetUploadFileAsync(currentUser.Key))
             {
                 if (uploadFile == null)
@@ -1302,7 +1303,6 @@ namespace NuGetGallery
                 if (formData.Edit != null)
                 {
                     pendEdit = pendEdit || formData.Edit.RequiresLicenseAcceptance != packageMetadata.RequireLicenseAcceptance;
-
                     pendEdit = pendEdit || IsDifferent(formData.Edit.IconUrl, packageMetadata.IconUrl.ToEncodedUrlStringOrNull());
                     pendEdit = pendEdit || IsDifferent(formData.Edit.ProjectUrl, packageMetadata.ProjectUrl.ToEncodedUrlStringOrNull());
                     pendEdit = pendEdit || IsDifferent(formData.Edit.RepositoryUrl, packageMetadata.RepoUrl.ToEncodedUrlStringOrNull());
@@ -1313,6 +1313,7 @@ namespace NuGetGallery
                     pendEdit = pendEdit || IsDifferent(formData.Edit.Summary, packageMetadata.Summary);
                     pendEdit = pendEdit || IsDifferent(formData.Edit.Tags, PackageHelper.ParseTags(packageMetadata.Tags));
                     pendEdit = pendEdit || IsDifferent(formData.Edit.VersionTitle, packageMetadata.Title);
+                    pendEdit = pendEdit || formData.ReadMe.Count > 0;
                 }
 
                 var packageStreamMetadata = new PackageStreamMetadata
@@ -1338,8 +1339,15 @@ namespace NuGetGallery
 
                 if (pendEdit)
                 {
+                    var readMeChanged = formData.ReadMe.Count > 0;
+                    if (readMeChanged)
+                    {
+                        
+                    }
+
                     // Add the edit request to a queue where it will be processed in the background.
-                    _editPackageService.StartEditPackageRequest(package, formData.Edit, currentUser);
+                    _editPackageService.StartEditPackageRequest(package, formData.Edit, currentUser, readMeChanged);
+                    
                 }
 
                 if (!formData.Listed)
