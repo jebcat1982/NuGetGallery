@@ -28,8 +28,8 @@ using NuGetGallery.Infrastructure.Lucene;
 using NuGetGallery.OData;
 using NuGetGallery.Packaging;
 using NuGetGallery.Security;
-using PoliteCaptcha;
 using NuGetGallery.Services;
+using PoliteCaptcha;
 
 namespace NuGetGallery
 {
@@ -990,8 +990,7 @@ namespace NuGetGallery
             {
                 try
                 {
-                    //TODO : Change false to a variable when handling the edit scenario.
-                    _editPackageService.StartEditPackageRequest(package, formData.Edit, user, false);
+                    _editPackageService.StartEditPackageRequest(package, formData.Edit, user, readMeChanged:false);
                     await _entitiesContext.SaveChangesAsync();
 
                     var packageWithEditsApplied = formData.Edit.ApplyTo(package);
@@ -1268,7 +1267,6 @@ namespace NuGetGallery
             var currentUser = GetCurrentUser();
 
             Package package;
-
             using (Stream uploadFile = await _uploadFileService.GetUploadFileAsync(currentUser.Key))
             {
                 if (uploadFile == null)
@@ -1305,9 +1303,11 @@ namespace NuGetGallery
                 if (formData.Edit != null)
                 {
                     pendEdit = pendEdit || formData.Edit.RequiresLicenseAcceptance != packageMetadata.RequireLicenseAcceptance;
+
                     pendEdit = pendEdit || IsDifferent(formData.Edit.IconUrl, packageMetadata.IconUrl.ToEncodedUrlStringOrNull());
                     pendEdit = pendEdit || IsDifferent(formData.Edit.ProjectUrl, packageMetadata.ProjectUrl.ToEncodedUrlStringOrNull());
-                    pendEdit = pendEdit || IsDifferent(formData.Edit.RepositoryUrl, packageMetadata.RepoUrl.ToEncodedUrlStringOrNull());
+                    pendEdit = pendEdit || IsDifferent(formData.Edit.RepositoryUrl, packageMetadata.RepositoryUrl.ToEncodedUrlStringOrNull());
+
                     pendEdit = pendEdit || IsDifferent(formData.Edit.Authors, packageMetadata.Authors.Flatten());
                     pendEdit = pendEdit || IsDifferent(formData.Edit.Copyright, packageMetadata.Copyright);
                     pendEdit = pendEdit || IsDifferent(formData.Edit.Description, packageMetadata.Description);
@@ -1343,13 +1343,12 @@ namespace NuGetGallery
                 {
                     // Checks to see if a ReadMe file has been added and uploads ReadMe
                     bool readMeChanged = formData.Edit.RepositoryUrl != null ||
-                        packageMetadata.RepoUrl.ToEncodedUrlStringOrNull() != null ||
+                        packageMetadata.RepositoryUrl.ToEncodedUrlStringOrNull() != null ||
                         formData.ReadMe != null;
                     if (readMeChanged)
                     {
                         // Converts a readme into a file stream
-                        ReadMeService readMeService = new ReadMeService();
-                        var readMeInputStream = readMeService.GetReadMeStream(formData, packageMetadata);
+                        var readMeInputStream = ReadMeService.GetReadMeStream(formData, packageMetadata);
                         await _packageFileService.SaveReadMeFileAsync(package, readMeInputStream);
                     }
                     // Add the edit request to a queue where it will be processed in the background.
