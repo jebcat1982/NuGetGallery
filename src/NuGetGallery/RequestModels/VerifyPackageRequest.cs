@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 using NuGet.Packaging;
 using NuGet.Versioning;
+using System.IO;
+using NuGetGallery.RequestModels;
 using NuGetGallery.Packaging;
 using System.Collections.Generic;
 using System.Web;
@@ -47,6 +49,6 @@ namespace NuGetGallery
         public string DevelopmentDependency { get; set; }
         public DependencySetsViewModel Dependencies { get; set; }
         public IReadOnlyCollection<FrameworkSpecificGroup> FrameworkReferenceGroups { get; set; }
-        public List<HttpPostedFileBase> ReadMe { get; set; }
+        public ReadMeRequest ReadMe { get; set; }
     }
 }
