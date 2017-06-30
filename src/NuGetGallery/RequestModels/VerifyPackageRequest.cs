@@ -49,6 +49,6 @@ namespace NuGetGallery
         public string DevelopmentDependency { get; set; }
         public DependencySetsViewModel Dependencies { get; set; }
         public IReadOnlyCollection<FrameworkSpecificGroup> FrameworkReferenceGroups { get; set; }
-        public List<HttpPostedFileBase> ReadMe { get; set; }
+        public ReadMeRequest ReadMe { get; set; }
     }
 }
