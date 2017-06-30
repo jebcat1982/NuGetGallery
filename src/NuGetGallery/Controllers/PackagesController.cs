@@ -183,6 +183,11 @@ namespace NuGetGallery
             return View();
         }
 
+        public virtual ActionResult ReadMePartial()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
@@ -990,7 +995,7 @@ namespace NuGetGallery
             {
                 try
                 {
-                    _editPackageService.StartEditPackageRequest(package, formData.Edit, user, readMeChanged:false);
+                    _editPackageService.StartEditPackageRequest(package, formData.Edit, user, readMeModified:false);
                     await _entitiesContext.SaveChangesAsync();
 
                     var packageWithEditsApplied = formData.Edit.ApplyTo(package);
@@ -1245,7 +1250,7 @@ namespace NuGetGallery
                     IconUrl = packageMetadata.IconUrl.ToEncodedUrlStringOrNull(),
                     LicenseUrl = packageMetadata.LicenseUrl.ToEncodedUrlStringOrNull(),
                     ProjectUrl = packageMetadata.ProjectUrl.ToEncodedUrlStringOrNull(),
-                    RepositoryUrl = packageMetadata.RepoUrl.ToEncodedUrlStringOrNull(),
+                    RepositoryUrl = packageMetadata.RepositoryUrl.ToEncodedUrlStringOrNull(),
                     ReleaseNotes = packageMetadata.ReleaseNotes,
                     RequiresLicenseAcceptance = packageMetadata.RequireLicenseAcceptance,
                     Summary = packageMetadata.Summary,
@@ -1342,13 +1347,13 @@ namespace NuGetGallery
                 if (pendEdit)
                 {
                     // Checks to see if a ReadMe file has been added and uploads ReadMe
-                    bool readMeChanged = formData.Edit.RepositoryUrl != null ||
-                        packageMetadata.RepositoryUrl.ToEncodedUrlStringOrNull() != null ||
-                        formData.ReadMe != null;
+                    bool readMeChanged = formData.ReadMe.ReadMeUrl != null ||
+                        formData.ReadMe.ReadMeWritten != null ||
+                        formData.ReadMe.ReadMeFile != null;
                     if (readMeChanged)
                     {
                         // Converts a readme into a file stream
-                        var readMeInputStream = ReadMeService.GetReadMeStream(formData, packageMetadata);
+                        var readMeInputStream = ReadMeService.GetReadMeStream(formData.ReadMe);
                         await _packageFileService.SaveReadMeFileAsync(package, readMeInputStream);
                     }
                     // Add the edit request to a queue where it will be processed in the background.

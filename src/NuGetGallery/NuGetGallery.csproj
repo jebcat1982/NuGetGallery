@@ -777,6 +777,7 @@
     <Compile Include="Migrations\201706221634506_AddRepositoryURL_ReadMe.Designer.cs">
       <DependentUpon>201706221634506_AddRepositoryURL_ReadMe.cs</DependentUpon>
     </Compile>
+    <Compile Include="RequestModels\ReadMeRequest.cs" />
     <Compile Include="Security\RequireSecurePushForCoOwnersPolicy.cs" />
     <Compile Include="Security\SecurePushSubscription.cs" />
     <Compile Include="Security\IUserSecurityPolicySubscription.cs" />
@@ -1811,6 +1812,7 @@
     <Content Include="Views\Pages\_PagesView.cshtml" />
     <Content Include="Views\Shared\_SearchBar.cshtml" />
     <Content Include="Views\Pages\Downloads.cshtml" />
+    <Content Include="Views\Packages\ReadMePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="Properties\CodeAnalysisDictionary.xml" />
