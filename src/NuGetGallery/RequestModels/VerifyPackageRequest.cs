@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Web;
 using NuGet.Packaging;
 using NuGet.Versioning;
+using System.IO;
+using NuGetGallery.RequestModels;
 using NuGetGallery.Packaging;
 using System.Collections.Generic;
 using System.Web;

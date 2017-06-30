@@ -207,9 +207,6 @@ namespace NuGetGallery
                 }
             }
 
-            return View(model);
-        }
-
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
