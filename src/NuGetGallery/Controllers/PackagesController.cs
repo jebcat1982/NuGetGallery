@@ -207,6 +207,11 @@ namespace NuGetGallery
             return View(model);
         }
 
+        public virtual ActionResult ReadMePartial()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
